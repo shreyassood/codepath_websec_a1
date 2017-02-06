@@ -33,6 +33,8 @@
 
 ?>
 
+
+
 <?php $page_title = 'Register'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
 
@@ -43,9 +45,82 @@
   <?php
     // TODO: display any form errors here
     // Hint: private/functions.php can help
+  function validate() {
+
+    if(!isset($_POST["first_name"])) {
+        printf("First name not set");
+        return false;
+      }
+
+      if(!isset($_POST["last_name"])) {
+        printf("Last name not set");
+        return false;
+      }
+
+      if(!isset($_POST["email"])) {
+        printf("Email not set");
+        return false;
+      }
+
+      if(!isset($_POST["username"])) {
+        printf("username not set");
+        return false;
+      }
+
+      if(!has_length($_POST["first_name"], ['min' => 2, 'max' => 255])) {
+        printf("First name must be between 2 and 255 characters long");
+        return false;
+      }
+
+      if(!has_length($_POST["last_name"], ['min' => 2, 'max' => 255])) {
+        printf("Last name must be between 2 and 255 characters long");
+        return false;
+      }
+
+      if(!has_length($_POST["username"], ['min' => 8, 'max' => 255])) {
+        printf("username must be between 8 and 255 characters long");
+        return false;
+      }
+
+      if(!has_length($_POST["email"], ['min' => 8, 'max' => 255])) {
+        printf("email must be between 0 and 255 characters long");
+        return false;
+      }
+
+      return true;
+    }
+
+
+
+
+
+
+
+    
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if(validate() == true) {
+             print("First name: " . $_POST["first_name"]
+      . ", Last name: " . $_POST["last_name"]
+      . ", Email: " .  $_POST["email"]
+      . ", Username: " . $_POST["username"]);
+      }
+    }
+
+
+    
   ?>
 
   <!-- TODO: HTML form goes here -->
+
+
+  <form method="POST" action="register.php">
+    First name: &nbsp;<input type="text" name="first_name" /><br/>
+    Last name: &nbsp;&nbsp;<input type="text" name="last_name" /><br/>
+    Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="email" /><br/>
+    Username: &nbsp;&nbsp;<input type="text" name="username" /><br/>
+    <input type="submit" name="submit" /><br/>
+  </form>
 
 </div>
 
