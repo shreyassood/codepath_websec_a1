@@ -82,9 +82,13 @@
         return false;
       }
 
-      if(!has_length($_POST["email"], ['min' => 8, 'max' => 255])) {
+      if(!has_length($_POST["email"], ['min' => 0, 'max' => 255])) {
         printf("email must be between 0 and 255 characters long");
         return false;
+      }
+
+      if(!has_valid_email_format($_POST["email"])) {
+        printf("The email is not of a valid format");
       }
 
       return true;
